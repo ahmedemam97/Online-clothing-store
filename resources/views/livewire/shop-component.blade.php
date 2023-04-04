@@ -50,16 +50,15 @@
                                             <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                         </div>
                                         <div class="sort-by-dropdown-wrap">
-                                            <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                            <span> Default Sorting <i class="fi-rs-angle-small-down"></i></span>
                                         </div>
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a class="active" href="#">Featured</a></li>
-                                            <li><a href="#">Price: Low to High</a></li>
-                                            <li><a href="#">Price: High to Low</a></li>
-                                            <li><a href="#">Release Date</a></li>
-                                            <li><a href="#">Avg. Rating</a></li>
+                                            <li><a href="#" class="{{ $orderBy=='Default Sorting' ? 'active' : '' }}" wire:click.prevernt="changeOrderBy('Default Sorting')">Default Sorting</a></li>
+                                            <li><a href="#" class="{{ $orderBy=='Price: Low to High' ? 'active' : '' }}" wire:click.prevernt="changeOrderBy('Price: Low to High')">Price: Low to High</a></li>
+                                            <li><a href="#" class="{{ $orderBy=='Price: High to Low' ? 'active' : '' }}" wire:click.prevernt="changeOrderBy('Price: High to Low')">Price: High to Low</a></li>
+                                            <li><a href="#" class="{{ $orderBy=='Sorting BY Newness' ? 'active' : '' }}" wire:click.prevernt="changeOrderBy('Sorting BY Newness')">Sorting BY Newness</a></li>
                                         </ul>
                                     </div>
                                 </div>
