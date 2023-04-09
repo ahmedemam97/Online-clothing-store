@@ -3,10 +3,10 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    @if(Session::has('success_message'))
+                    @if (Session::has('success_message'))
                         <div class="alert alert-success">
                             <strong>
-                                Success | {{ Session::get('success_message') }}
+                                Success | {{ Session::instance('cart')->get('success_message') }}
                             </strong>
                         </div>
                     @endif
@@ -21,51 +21,62 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
-                            <table class="table shopping-summery text-center clean">
-                                <thead>
-                                    <tr class="main-heading">
-                                        <th scope="col">Image</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Subtotal</th>
-                                        <th scope="col">Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                    @if(Cart::count() > 0)
-                                        @foreach (Cart::content() as $item)
-                                            
+                            @if (Cart::instance('cart')->count() > 0)
+                                <table class="table shopping-summery text-center clean">
+                                    <thead>
+                                        <tr class="main-heading">
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Subtotal</th>
+                                            <th scope="col">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (Cart::instance('cart')->content() as $item)
                                             <tr>
-                                                <td class="image product-thumbnail"><img src="{{ asset('assets/imgs/shop/product-')}}{{ $item->model->id }}-2.jpg" alt="{{ $item->model->name }}"></td>
+                                                <td class="image product-thumbnail"><img
+                                                        src="{{ asset('assets/imgs/shop/product-') }}{{ $item->model->id }}-2.jpg"
+                                                        alt="{{ $item->model->name }}"></td>
                                                 <td class="product-des product-name">
-                                                    <h5 class="product-name"><a href="">{{ $item->model->name }}</a></h5>
+                                                    <h5 class="product-name"><a
+                                                            href="">{{ $item->model->name }}</a></h5>
                                                     {{-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.</p> --}}
                                                 </td>
-                                                <td class="price" data-title="Price"><span>${{ $item->model->regular_price }}</span></td>
+                                                <td class="price" data-title="Price">
+                                                    <span>${{ $item->model->regular_price }}</span></td>
                                                 <td class="text-center" data-title="Stock">
                                                     <div class="detail-qty border radius  m-auto">
-                                                        <a href="#" class="qty-down" wire:click.prevent="decreaseQuantity('{{ $item->rowId }}')"><i class="fi-rs-angle-small-down"></i></a>
+                                                        <a href="#" class="qty-down"
+                                                            wire:click.prevent="decreaseQuantity('{{ $item->rowId }}')"><i
+                                                                class="fi-rs-angle-small-down"></i></a>
                                                         <span class="qty-val">{{ $item->qty }}</span>
-                                                        <a href="#" class="qty-up" wire:click.prevent="increaseQuantity('{{ $item->rowId }}')"><i class="fi-rs-angle-small-up"></i></a>
+                                                        <a href="#" class="qty-up"
+                                                            wire:click.prevent="increaseQuantity('{{ $item->rowId }}')"><i
+                                                                class="fi-rs-angle-small-up"></i></a>
                                                     </div>
                                                 </td>
                                                 <td class="text-right" data-title="Cart">
                                                     <span>${{ $item->subtotal }}</span>
                                                 </td>
-                                                <td class="action" data-title="Remove"><a href="#" class="text-muted" wire:click.prevent="destroy('{{ $item->rowId }}')"><i class="fi-rs-trash"></i></a></td>
+                                                <td class="action" data-title="Remove"><a href="#"
+                                                        class="text-muted"
+                                                        wire:click.prevent="destroy('{{ $item->rowId }}')"><i
+                                                            class="fi-rs-trash"></i></a></td>
                                             </tr>
                                         @endforeach
                                     @else
-                                            <p>No Items Added Yet</p>
-                                    @endif
-                                        <tr>
-                                            <td colspan="6" class="text-end">
-                                                <a href="#" class="text-muted" wire:click.prevent="clearAll()"> <i class="fi-rs-cross-small"></i> Clear Cart</a>
-                                            </td>
-                                        </tr>
-                                </tbody>
+                                        <p>No Items Added Yet</p>
+                            @endif
+                            <tr>
+                                <td colspan="6" class="text-end">
+                                    <a href="#" class="text-muted" wire:click.prevent="clearAll()"> <i
+                                            class="fi-rs-cross-small"></i> Clear Cart</a>
+                                </td>
+                            </tr>
+                            </tbody>
                             </table>
                         </div>
                         <div class="cart-action text-end">
@@ -335,15 +346,18 @@
                                     </div>
                                     <div class="form-row row">
                                         <div class="form-group col-lg-6">
-                                            <input required="required" placeholder="State / Country" name="name" type="text">
+                                            <input required="required" placeholder="State / Country" name="name"
+                                                type="text">
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <input required="required" placeholder="PostCode / ZIP" name="name" type="text">
+                                            <input required="required" placeholder="PostCode / ZIP" name="name"
+                                                type="text">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-lg-12">
-                                            <button class="btn  btn-sm"><i class="fi-rs-shuffle mr-10"></i>Update</button>
+                                            <button class="btn  btn-sm"><i
+                                                    class="fi-rs-shuffle mr-10"></i>Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -357,10 +371,12 @@
                                                 <form action="#" target="_blank">
                                                     <div class="form-row row justify-content-center">
                                                         <div class="form-group col-lg-6">
-                                                            <input class="font-medium" name="Coupon" placeholder="Enter Your Coupon">
+                                                            <input class="font-medium" name="Coupon"
+                                                                placeholder="Enter Your Coupon">
                                                         </div>
                                                         <div class="form-group col-lg-6">
-                                                            <button class="btn  btn-sm"><i class="fi-rs-label mr-10"></i>Apply</button>
+                                                            <button class="btn  btn-sm"><i
+                                                                    class="fi-rs-label mr-10"></i>Apply</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -379,24 +395,32 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="cart_total_label">Cart Subtotal</td>
-                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">${{ Cart::subtotal() }}</span></td>
+                                                    <td class="cart_total_amount"><span
+                                                            class="font-lg fw-900 text-brand">${{ Cart::subtotal() }}</span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Tax</td>
-                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">${{ Cart::tax() }}</span></td>
+                                                    <td class="cart_total_amount"><span
+                                                            class="font-lg fw-900 text-brand">${{ Cart::tax() }}</span>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Shipping</td>
-                                                    <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free Shipping</td>
+                                                    <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free
+                                                        Shipping</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Total</td>
-                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">${{ Cart::total() }}</span></strong></td>
+                                                    <td class="cart_total_amount"><strong><span
+                                                                class="font-xl fw-900 text-brand">${{ Cart::total() }}</span></strong>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="checkout.html" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                    <a href="checkout.html" class="btn "> <i class="fi-rs-box-alt mr-10"></i>
+                                        Proceed To CheckOut</a>
                                 </div>
                             </div>
                         </div>

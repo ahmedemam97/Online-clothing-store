@@ -10,6 +10,7 @@ use App\Http\Livewire\User\UserDashboardComponent;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\DetailsComponent;
+use App\Http\Livewire\SearchComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,8 @@ Route::get('/cart', CartComponent::class)->name('shop.cart');
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 
 Route::get('/product-category/{slug}', CategoryComponent::class)->name('product.category');
+
+Route::get('/search', SearchComponent::class)->name('product.search');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
